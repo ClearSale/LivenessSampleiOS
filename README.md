@@ -1,73 +1,123 @@
-# CS Livness Flutter Plugin
-## Instruções de uso
+# iOS
 
-Adicione um arquivo `.env.gradle` que contenha as seguintes variávies:
+## Requisitos
+
+- Versão do sistema operacional iOS: 12.4 ou superior.
+- Versão do projeto Swift 4+: funciona com Xcode anterior ao 13.
+
+### Instalação do Pacote
+
+CocoaPods
+Para adicionar o SDK ao seu projeto utilizando Cocoapods basta adicionar o seguinte comando ao seu Podfile:
+
+Instalação em ambiente de desenvolvimento e testes
+
+### Instalação em ambiente de desenvolvimento e testes
+
+```ruby
+platform :ios, '12.4'
+
+use_frameworks!
+target 'NOME_DO_SEU_PROJETO' do
+    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.8-hml'
+    pod 'CSLivenessSDKTec', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.5'
+    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.15.0'
+    pod 'Amplitude', '~> 8.10.2'
+end
+
 
 ```
-CS_LIVENESS_TEC_ARTIFACTS_FEED_URL=ARTIFACTS_FEED_URL // valor fornecido pela clear sale
-CS_LIVENESS_TEC_ARTIFACTS_FEED_NAME=ARTIFACTS_FEED_NAME // valor fornecido pela clear sale
-CS_LIVINESS_TEC_USER=USERNAME // valor fornecido pela clear sale
-CS_LIVINESS_TEC_PASS=ACCESSTOKEN // valor fornecido pela clear sale
-CS_LIVENESS_VERSION=LAST_VERSION // valor fornecido pela clear sale
+
+### Instalação em ambiente de produção
+
+```ruby
+platform :ios, '12.4'
+
+use_frameworks!
+target 'NOME_DO_SEU_PROJETO' do
+    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.8'
+    pod 'CSLivenessSDKTec', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.5'
+    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.15.0'
+    pod 'Amplitude', '~> 8.10.2'
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    # Adicionar
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
+    end
+    flutter_additional_ios_build_settings(target)
+  end
+end
+```
+## Configuração
+
+Instruções para configuração do framework no projeto:
+
+- Adicionar as seguintes entradas ao arquivo Info.plist do projeto de destino:
+
+```
+<key>NSCameraUsageDescription</key>
+<string>This app requires access to the camera.</string>
 ```
 
-Após isso, adicione no seu projeto Android, no arquivo build.gradle, após o buildscript a seguinte linha:
-```
-def defaultPath = System.env.DIRNAME ?: System.env.PWD
-System.properties["ENV_FILE"] = defaultPath + "/../.gradle.env"
+> Após confifurações executar `pod install`
+
+## Configuração
+
+Para iniciar o Framework importe o SDK em seu código 
+
+```swift
+import CSLivenessSDK
 ```
 
-Ex.:
-```
-buildscript {
-    ext.kotlin_version = '1.6.10'
-    repositories {
-        google()
-        mavenCentral()
+Extenda o Delegate para capturar os resultados do Framework
+
+```swift
+// MARK: - Clearsale liveness Delegate
+
+extension ViewController: CSLivenessDelegate {
+    func liveness(didOpen: Bool) {
+        print(didOpen)
+    }
+    
+    func liveness(error: CSLivenessError) {
+        print(error)
+        print("*********** \(error.rawValue) ***********")
+        force(portrait: false)
+    }
+    
+    func liveness(success: CSLivenessResult) {
+        print(success)
+        print("*********** \(success) ***********")
+        force(portrait: false)
     }
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    func force(portrait: Bool)  {
+        DispatchQueue.main.async {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,forKey: "orientation")
+        }
     }
 }
+```
 
-def defaultPath = System.env.DIRNAME ?: System.env.PWD
-System.properties["ENV_FILE"] = defaultPath + "/../.gradle.env"
+E realize a chamada do Framework.
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+```swift
+    @IBAction func didTapButton(_ sender: Any) {
+        force(portrait: true)
+        DispatchQueue.main.async {
+            self.livenessSdk = CSLiveness(
+                configurations: CSLivenessConfigurations(
+                    clientId: "SEU CLIENT ID AQUI",
+                    clientSecret: "SEU SECRET ID AQUI"
+                )
+            )
+            
+            self.livenessSdk?.delegate = self
+            self.livenessSdk?.start(viewController: self, animated: true)
+        }
     }
-}
 ```
-
-
-## Para uso do plugin
-
-Existem 2 métodos Future na classe `CsLivenessFlutter`:
-
-`livenessRecognition`: retorna uma String base64
-
-Ex.: 
-```
-final CsLivenessFlutter _csLivenessFlutterPlugin = CsLivenessFlutter();
-String? base64Image = _csLivenessFlutterPlugin.livenessRecognition(
-    clientId: "CLIENT_ID",
-    clientSecret: "CLIENT_SECRET",
-);
-```
-
-`livenessRecognitionImage`: retorna uma imagem do Flutter.
-
-Ex.: 
-```
-final CsLivenessFlutter _csLivenessFlutterPlugin = CsLivenessFlutter();
-Image reconizedImage = _csLivenessFlutterPlugin.livenessRecognitionImage(
-    clientId: "CLIENT_ID",
-    clientSecret: "CLIENT_SECRET",
-);
-```
-
-Para os dois métodos, os parâmetros clientId e clientSecret são obrigatórios e devem ser fornecidos pela ClearSale.
