@@ -1,0 +1,67 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios10.3-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name CSLivenessSDK
+import AVFoundation
+import Amplitude
+@_exported import CSLivenessSDK
+import FaceTecSDK
+import Foundation
+import LocalAuthentication
+import Sentry
+import Swift
+import SystemConfiguration
+import UIKit
+import _Concurrency
+@_hasMissingDesignatedInitializers public class Reachability {
+  @objc deinit
+}
+@objc public class CSLiveness : ObjectiveC.NSObject {
+  public var delegate: CSLivenessSDK.CSLivenessDelegate?
+  public init(configurations: CSLivenessSDK.CSLivenessConfigurations, debug: Swift.Bool = false)
+  @objc deinit
+}
+extension CSLivenessSDK.CSLiveness {
+  public func start(viewController: UIKit.UIViewController, animated: Swift.Bool)
+}
+public enum CSLivenessError : Swift.String, Swift.Error {
+  case none
+  case maxRetry
+  case userCancel
+  case network
+  case authentication
+  case alreadyOpened
+  case landscapeModeNotAllowed
+  case cameraPermissionDenied
+  case lowMemory
+  case cameraInitializationIssue
+  case timeout
+  case unexpected
+  case background
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol CSLivenessDelegate : AnyObject {
+  func liveness(didOpen: Swift.Bool)
+  func liveness(error: CSLivenessSDK.CSLivenessError)
+  func liveness(success: CSLivenessSDK.CSLivenessResult)
+}
+public struct AuthConfigurations {
+  public init(baseUrl: Swift.String = "", serviceCode: Swift.String = "", clientId: Swift.String = "", clientSecret: Swift.String = "", username: Swift.String = "", password: Swift.String = "")
+}
+@objc public class CSLivenessConfigurations : ObjectiveC.NSObject {
+  public init(clientId: Swift.String, clientSecret: Swift.String)
+  @objc deinit
+}
+@objc public class CSLivenessResult : ObjectiveC.NSObject {
+  final public let real: Swift.Bool
+  final public let sessionId: Swift.String
+  final public let image: Swift.String
+  public init(real: Swift.Bool, sessionId: Swift.String, image: Swift.String)
+  @objc deinit
+}
+extension CSLivenessSDK.CSLivenessError : Swift.Equatable {}
+extension CSLivenessSDK.CSLivenessError : Swift.Hashable {}
+extension CSLivenessSDK.CSLivenessError : Swift.RawRepresentable {}

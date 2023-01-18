@@ -1,0 +1,32 @@
+{
+  "name": "CSLivenessSDKTec",
+  "version": "9.4.9",
+  "summary": "This is a plugin for integrate clearsale liveness sdk.",
+  "description": "This is a plugin for integrate clearsale.",
+  "homepage": "http://www.clearsale.com.br",
+  "license": "MIT",
+  "authors": {
+    "ClearSale": "clearsale@clearsale.com.br"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "preserve_paths": "FaceTecSDK.xcframework",
+  "ios": {
+    "vendored_frameworks": "FaceTecSDK.xcframework"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "i386 arm64",
+    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+  },
+  "xcconfig": {
+    "ENABLE_BITCODE": "NO"
+  },
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}

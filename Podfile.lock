@@ -1,0 +1,56 @@
+PODS:
+  - Amplitude (8.10.2):
+    - AnalyticsConnector (~> 1.0.0)
+  - AnalyticsConnector (1.0.0)
+  - CSLivenessSDK (1.0.2):
+    - Amplitude (= 8.10.2)
+    - CSLivenessSDKTec (= 9.4.9)
+    - Sentry (= 7.15.0)
+  - CSLivenessSDKTec (9.4.9)
+  - Sentry (7.15.0):
+    - Sentry/Core (= 7.15.0)
+  - Sentry/Core (7.15.0)
+
+DEPENDENCIES:
+  - Amplitude (~> 8.10.2)
+  - "CSLivenessSDK (from `https://CS-Package:mcwnvwgcqd6gm2bgu77ivjigik7357ne27cik6lprvbtaveoa4nq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK`, tag `1.0.2`)"
+  - "CSLivenessSDKTec (from `https://CS-Package:mcwnvwgcqd6gm2bgu77ivjigik7357ne27cik6lprvbtaveoa4nq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK`, tag `1.0.2`)"
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `7.15.0`)
+
+SPEC REPOS:
+  trunk:
+    - Amplitude
+    - AnalyticsConnector
+
+EXTERNAL SOURCES:
+  CSLivenessSDK:
+    :git: "https://CS-Package:mcwnvwgcqd6gm2bgu77ivjigik7357ne27cik6lprvbtaveoa4nq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.2
+  CSLivenessSDKTec:
+    :git: "https://CS-Package:mcwnvwgcqd6gm2bgu77ivjigik7357ne27cik6lprvbtaveoa4nq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.2
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 7.15.0
+
+CHECKOUT OPTIONS:
+  CSLivenessSDK:
+    :git: "https://CS-Package:mcwnvwgcqd6gm2bgu77ivjigik7357ne27cik6lprvbtaveoa4nq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.2
+  CSLivenessSDKTec:
+    :git: "https://CS-Package:mcwnvwgcqd6gm2bgu77ivjigik7357ne27cik6lprvbtaveoa4nq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.2
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 7.15.0
+
+SPEC CHECKSUMS:
+  Amplitude: de83eb4d886a4905948baa9aad40f8cbb1fa54ee
+  AnalyticsConnector: 4c386d5972ac9da86e22d668564dbbac97558754
+  CSLivenessSDK: e198d77cd9fc644e2744a181eed0aeda4b7efd6e
+  CSLivenessSDKTec: 3e570aa8dda9ec7ea5c1289721f14dde508f889a
+  Sentry: 63ca44f5e0c8cea0ee5a07686b02e56104f41ef7
+
+PODFILE CHECKSUM: f4a7b81af35605229845f4808879c0e7c3c5ea49
+
+COCOAPODS: 1.11.3
