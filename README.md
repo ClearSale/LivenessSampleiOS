@@ -15,7 +15,7 @@ Instalação em ambiente de desenvolvimento e testes
 ### Instalação em ambiente de desenvolvimento e testes
 
 ```ruby
-platform :ios, '12.4'
+platform :ios, '12.0'
 
 use_frameworks!
 
