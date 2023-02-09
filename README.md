@@ -2,7 +2,7 @@
 
 ## Requisitos
 
-- Versão do sistema operacional iOS: 12.4 ou superior.
+- Versão do sistema operacional iOS: 12.0 ou superior.
 - Versão do projeto Swift 4+: funciona com Xcode anterior ao 13.
 
 ### Instalação do Pacote
@@ -18,38 +18,21 @@ Instalação em ambiente de desenvolvimento e testes
 platform :ios, '12.4'
 
 use_frameworks!
+
 target 'NOME_DO_SEU_PROJETO' do
-    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.8-hml'
-    pod 'CSLivenessSDKTec', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.5'
-    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.15.0'
-    pod 'Amplitude', '~> 8.10.2'
+    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '1.1.0'
 end
-
-
 ```
 
 ### Instalação em ambiente de produção
 
 ```ruby
-platform :ios, '12.4'
+platform :ios, '12.0'
 
 use_frameworks!
+
 target 'NOME_DO_SEU_PROJETO' do
-    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.8'
-    pod 'CSLivenessSDKTec', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '0.0.5'
-    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.15.0'
-    pod 'Amplitude', '~> 8.10.2'
-end
-
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    # Adicionar
-    target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
-    end
-    flutter_additional_ios_build_settings(target)
-  end
+    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '1.1.0'
 end
 ```
 ## Configuração
@@ -113,7 +96,8 @@ E realize a chamada do Framework.
                 configurations: CSLivenessConfigurations(
                     clientId: "SEU CLIENT ID AQUI",
                     clientSecret: "SEU SECRET ID AQUI"
-                )
+                ),
+                vocalGuidance: false
             )
             
             self.livenessSdk?.delegate = self
