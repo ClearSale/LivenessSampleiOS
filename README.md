@@ -3,7 +3,7 @@
 ## Requisitos
 
 - Versão do sistema operacional iOS: 12.0 ou superior.
-- Versão do projeto Swift 4+: funciona com Xcode anterior ao 13.
+- Versão do projeto Swift 4+: funciona com Xcode superior ao 13.
 
 ### Instalação do Pacote
 
@@ -20,7 +20,7 @@ platform :ios, '12.0'
 use_frameworks!
 
 target 'NOME_DO_SEU_PROJETO' do
-    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '1.1.0-hml'
+    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '1.2.0-hml'
 end
 ```
 
@@ -32,7 +32,7 @@ platform :ios, '12.0'
 use_frameworks!
 
 target 'NOME_DO_SEU_PROJETO' do
-    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '1.1.0'
+    pod 'CSLivenessSDK', :git => 'URL DO REPOSITÓRIO ENVIADO PELA CLEAR SALE', :tag => '1.2.0'
 end
 ```
 ## Configuração
@@ -95,7 +95,9 @@ E realize a chamada do Framework.
             self.livenessSdk = CSLiveness(
                 configurations: CSLivenessConfigurations(
                     clientId: "SEU CLIENT ID AQUI",
-                    clientSecret: "SEU SECRET ID AQUI"
+                    clientSecret: "SEU SECRET ID AQUI",
+                    identifierId: "IDENTIFICADOR INTERNO AQUI",
+                    cpf: "CPF DO CLIENTE AQUI"
                 ),
                 vocalGuidance: false
             )
