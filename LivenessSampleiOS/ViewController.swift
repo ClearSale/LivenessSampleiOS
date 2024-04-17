@@ -21,12 +21,22 @@ class ViewController: UIViewController {
     @IBAction func didTapButton(_ sender: Any) {
         force(portrait: true)
         DispatchQueue.main.async {
+            let colors = CSLivenessColorsConfig(
+                primaryColor: nil,
+                secondaryColor: nil,
+                titleColor: nil,
+                paragraphColor: nil)
+            
+            let configuration = CSLivenessConfig(
+                clientId: "Digite seu client ID",
+                clientSecret: "Digite seu client Secrect",
+                identifierId: "Digite seu identifier ID",
+                cpf: "digite seu CPF",
+                colors: colors)
+            
             self.livenessSdk = CSLiveness(
-                configurations: CSLivenessConfigurations(
-                    clientId: "SEU CLIENT ID AQUI",
-                    clientSecret: "SEU SECRET ID AQUI"
-                )
-            )
+                configuration: configuration,
+                vocalGuidance: true)
             
             self.livenessSdk?.delegate = self
             self.livenessSdk?.start(viewController: self, animated: true)
