@@ -86,24 +86,27 @@ extension ViewController: CSLivenessDelegate {
 }
 ```
 
-E realize a chamada do Framework.
+### E realize a chamada do Framework.
 
-```swift
-    @IBAction func didTapButton(_ sender: Any) {
+```swift    
+    @IBAction func didTapButton(_ sender: Any) {        
         force(portrait: true)
         DispatchQueue.main.async {
             self.livenessSdk = CSLiveness(
-                configurations: CSLivenessConfigurations(
-                    clientId: "SEU CLIENT ID AQUI",
-                    clientSecret: "SEU SECRET ID AQUI",
-                    identifierId: "IDENTIFICADOR INTERNO AQUI",
-                    cpf: "CPF DO CLIENTE AQUI"
-                ),
+                configurations: CSLivenessConfig(
+                    accessToken: "Digite o accessToken",
+                    transactionId: "Digite o transactionId",
+                    colors: colors),
                 vocalGuidance: false
             )
-            
+        
             self.livenessSdk?.delegate = self
             self.livenessSdk?.start(viewController: self, animated: true)
-        }
+        }    
     }
 ```
+
+### Como obter o accessToken e transactionId?
+- `accessToken`: Faça a autenticação seguindo as instruções da [API DataTrust](https://devs.plataformadatatrust.clearsale.com.br/reference/post_v1-authentication) e obtenha o `token` do retorno.
+- `transactionId`: Crie uma transação seguindo as instruções da [API DataTrust](https://devs.plataformadatatrust.clearsale.com.br/reference/post_v1-transaction) e obtenha o `id` do retorno.
+
