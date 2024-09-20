@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  LivenessSampleiOS
-//
-//  Created by lucas.carvalho on 18/01/23.
-//
-
 import UIKit
 import CSLivenessSDK
 
@@ -16,8 +9,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    
+
+
     @IBAction func didTapButton(_ sender: Any) {
         force(portrait: true)
         DispatchQueue.main.async {
@@ -26,18 +19,16 @@ class ViewController: UIViewController {
                 secondaryColor: nil,
                 titleColor: nil,
                 paragraphColor: nil)
-            
+
             let configuration = CSLivenessConfig(
-                clientId: "Digite seu client ID",
-                clientSecret: "Digite seu client Secrect",
-                identifierId: "Digite seu identifier ID",
-                cpf: "digite seu CPF",
+                accessToken: "Digite o accessToken",
+                transactionId: "Digite o transactionId",
                 colors: colors)
-            
+
             self.livenessSdk = CSLiveness(
                 configuration: configuration,
                 vocalGuidance: true)
-            
+
             self.livenessSdk?.delegate = self
             self.livenessSdk?.start(viewController: self, animated: true)
         }
@@ -51,13 +42,13 @@ extension ViewController: CSLivenessDelegate {
     func liveness(didOpen: Bool) {
         print(didOpen)
     }
-    
+
     func liveness(error: CSLivenessError) {
         print(error)
         print("*********** \(error.rawValue) ***********")
         force(portrait: false)
     }
-    
+
     func liveness(success: CSLivenessResult) {
         print(success)
         print("*********** \(success) ***********")
@@ -70,4 +61,3 @@ extension ViewController: CSLivenessDelegate {
         }
     }
 }
-
